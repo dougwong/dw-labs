@@ -1,4 +1,6 @@
 *.class
+build*.properties
+build*.xml
 
 # Package Files #
 *.jar
