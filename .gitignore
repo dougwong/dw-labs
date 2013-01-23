@@ -4,6 +4,5 @@ build*.xml
 /ee-6.0.x/plugins/lib
 
 # Package Files #
-*.jar
 *.war
 *.ear
