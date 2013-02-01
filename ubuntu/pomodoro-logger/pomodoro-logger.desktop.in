@@ -1,0 +1,8 @@
+[Desktop Entry]
+_Name=Pomodoro Logger
+_Comment=PomodoroLogger application
+Categories=GNOME;Utility;
+Exec=pomodoro-logger
+Icon=/usr/share/pomodoro-logger/media/pomodoro-logger.svg
+Terminal=false
+Type=Application
