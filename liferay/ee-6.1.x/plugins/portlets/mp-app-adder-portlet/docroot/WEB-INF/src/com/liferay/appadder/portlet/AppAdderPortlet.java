@@ -71,19 +71,9 @@ public class AppAdderPortlet extends MVCPortlet {
 			int amount = ParamUtil.getInteger(actionRequest, "amount");
 			String title = ParamUtil.getString(actionRequest, "title");
 
-			System.out.println("amount: " + amount);
-			System.out.println("title: " + title);
-
-			// System.out.println(OSBConstants.ASSET_VOCABULARY_MARKETPLACE_ID);
-
-			System.out.println(
-				"count: " +
-					ApplicationEntryLocalServiceUtil.getApplicationEntriesCount(
-						0));
-
 			for (int i = 0; i < amount; i++) {
 				ApplicationEntry applicationEntry = addApplicationEntry(
-					actionRequest, title + i);
+					actionRequest, title + " " + i);
 
 				applicationEntry = updateApplicationVersion(
 					applicationEntry.getApplicationEntryId());
@@ -126,8 +116,6 @@ public class AppAdderPortlet extends MVCPortlet {
 
 		String defaultLanguageId = "en_US";
 		String languageId = "en_US";
-		// String ownerClassName = ParamUtil.getString(
-		// 	actionRequest, "ownerClassName");
 
 		String ownerClassName = CorpEntry.class.getName();
 		long ownerClassPK = ParamUtil.getLong(actionRequest, "ownerClassPK");
@@ -154,19 +142,6 @@ public class AppAdderPortlet extends MVCPortlet {
 		description = LocalizationUtil.updateLocalization(
 			StringPool.BLANK, "static-content", description, languageId,
 			languageId, true, descriptionLocalized);
-
-		// if (customEula) {
-		// 	if (PortletPropsValues.MARKETPLACE_CONTRACT_LOCALIZED_ENABLED) {
-		// 		eulaContent = LocalizationUtil.updateLocalization(
-		// 			StringPool.BLANK, "static-content", eulaContent,
-		// 			languageId, languageId, true, eulaLocalized);
-		// 	}
-		// 	else {
-		// 		eulaContent = LocalizationUtil.updateLocalization(
-		// 			StringPool.BLANK, "static-content", eulaContent,
-		// 			"en_US", "en_US", true, eulaLocalized);
-		// 	}
-		// }
 
 		ApplicationEntry applicationEntry =
 			ApplicationEntryServiceUtil.addApplicationEntry(
@@ -208,8 +183,7 @@ public class AppAdderPortlet extends MVCPortlet {
 
 			ApplicationEntryRelServiceUtil.addApplicationEntryRel(
 				applicationEntry.getApplicationEntryId(),
-				supersedesApplicationEntryId,
-				1);
+				supersedesApplicationEntryId, 1);
 		}
 
 		return applicationEntry;
@@ -228,14 +202,14 @@ public class AppAdderPortlet extends MVCPortlet {
 		ApplicationPackage applicationPackage =
 			ApplicationPackageLocalServiceUtil.fetchApplicationPackage(
 				applicationVersion.getApplicationVersionId(),
-				PORTAL_6_1_1_BUILD_NUMBER);
+				PORTAL_6_1_20_BUILD_NUMBER);
 
 		if (applicationPackage == null) {
 			applicationPackage =
 				ApplicationPackageServiceUtil.addApplicationPackage(
 					applicationVersion.getApplicationEntryId(),
 					applicationVersion.getApplicationVersionId(),
-					PORTAL_6_1_1_BUILD_NUMBER, true);
+					PORTAL_6_1_20_BUILD_NUMBER, true);
 		}
 
 		ApplicationPackagePlugin applicationPackagePlugin = null;
@@ -269,12 +243,17 @@ public class AppAdderPortlet extends MVCPortlet {
 	}
 
 	protected static final String APP_FILE_NAME =
-		"goodbye-world-portlet-6.1.0.1.war";
+		"hello-pacl-world-portlet-6.1.20.1.war";
 
 	protected static final String[] APPLICATION_ICON_FILE_NAMES = {
-		"icon-alloy.png", "icon-angrybirds.jpg", "icon-battleheart.jpg",
-		"icon-so.png", "icon-studio.png", "icon-tinytower.jpg"};
+		"7COGS-HOOK.png", "7COGS-MOBILE.png", "7COGS-THEME2.png", "alloy.png",
+		"app.png", "chat.png", "GOOGLE ADSENSE.png", "GOOGLE-MAPS.png",
+		"hook-templates.png", "icon-alloy.png", "icon-so.png",
+		"icon-studio.png", "icon-wallet.png", "kaleo.png", "mail.png",
+		"open-social.png", "pencil.png", "planner.png", "social-office.png",
+		"solr.png", "talk.png", "theme.png", "twitter.png", "web forms.png"
+		};
 
-	public static final int PORTAL_6_1_1_BUILD_NUMBER = 6101;
+	protected static final int PORTAL_6_1_20_BUILD_NUMBER = 6120;
 
 }
