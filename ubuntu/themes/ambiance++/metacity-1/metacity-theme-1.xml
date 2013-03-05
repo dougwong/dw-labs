@@ -2,15 +2,15 @@
 
 <metacity_theme>
 <info>
-  <name>Ambiance</name>
-  <author>Kenneth Wimer, James Schriver, Andrea Cimitan</author>
+  <name>Ambiance++</name>
+  <author>Kenneth Wimer, James Schriver, Andrea Cimitan, Douglas Wong</author>
   <copyright>Canonical Ltd.</copyright>
   <date>June, 2011</date>
-  <description>Metacity theme</description>
+  <description>Metacity theme with edits</description>
 </info>
 
 <!-- general window layout -->
-<frame_geometry name="frame_geometry_normal" title_scale="medium" rounded_top_left="true" rounded_top_right="true" rounded_bottom_left="false" rounded_bottom_right="false">
+<frame_geometry name="frame_geometry_normal" title_scale="medium" rounded_top_left="true" rounded_top_right="true" rounded_bottom_left="true" rounded_bottom_right="true">
   <distance name="left_width" value="1"/>
   <distance name="right_width" value="1"/>
   <distance name="bottom_height" value="1"/>
