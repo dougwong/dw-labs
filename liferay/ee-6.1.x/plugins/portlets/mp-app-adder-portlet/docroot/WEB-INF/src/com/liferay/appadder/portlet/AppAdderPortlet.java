@@ -14,21 +14,21 @@
 
 package com.liferay.appadder.portlet;
 
-import com.liferay.osb.model.ApplicationEntry;
-import com.liferay.osb.model.ApplicationEntryRel;
-import com.liferay.osb.model.ApplicationPackage;
-import com.liferay.osb.model.ApplicationPackagePlugin;
-import com.liferay.osb.model.ApplicationVersion;
+import com.liferay.osb.model.AppEntry;
+import com.liferay.osb.model.AppEntryRel;
+import com.liferay.osb.model.AppPackage;
+import com.liferay.osb.model.AppPackagePlugin;
+import com.liferay.osb.model.AppVersion;
 import com.liferay.osb.model.CorpEntry;
 import com.liferay.osb.model.CurrencyEntry;
-import com.liferay.osb.service.ApplicationEntryLocalServiceUtil;
-import com.liferay.osb.service.ApplicationEntryRelLocalServiceUtil;
-import com.liferay.osb.service.ApplicationEntryRelServiceUtil;
-import com.liferay.osb.service.ApplicationEntryServiceUtil;
-import com.liferay.osb.service.ApplicationPackageLocalServiceUtil;
-import com.liferay.osb.service.ApplicationPackagePluginServiceUtil;
-import com.liferay.osb.service.ApplicationPackageServiceUtil;
-import com.liferay.osb.service.ApplicationVersionLocalServiceUtil;
+import com.liferay.osb.service.AppEntryLocalServiceUtil;
+import com.liferay.osb.service.AppEntryRelLocalServiceUtil;
+import com.liferay.osb.service.AppEntryRelServiceUtil;
+import com.liferay.osb.service.AppEntryServiceUtil;
+import com.liferay.osb.service.AppPackageLocalServiceUtil;
+import com.liferay.osb.service.AppPackagePluginServiceUtil;
+import com.liferay.osb.service.AppPackageServiceUtil;
+import com.liferay.osb.service.AppVersionLocalServiceUtil;
 import com.liferay.osb.service.AssetAttachmentLocalServiceUtil;
 import com.liferay.osb.service.CurrencyEntryLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -72,22 +72,19 @@ public class AppAdderPortlet extends MVCPortlet {
 			String title = ParamUtil.getString(actionRequest, "title");
 
 			for (int i = 0; i < amount; i++) {
-				ApplicationEntry applicationEntry = addApplicationEntry(
-					actionRequest, title + " " + i);
+				AppEntry appEntry = addAppEntry(actionRequest, title + " " + i);
 
-				applicationEntry = updateApplicationVersion(
-					applicationEntry.getApplicationEntryId());
+				appEntry = updateAppVersion(appEntry.getAppEntryId());
 
-				ApplicationVersion applicationVersion =
-					ApplicationVersionLocalServiceUtil.
-						getLatestApplicationVersion(
-							applicationEntry.getApplicationEntryId());
+				AppVersion appVersion =
+					AppVersionLocalServiceUtil.getLatestAppVersion(
+						appEntry.getAppEntryId());
 
-				addApplicationPackage(applicationVersion);
+				addAppPackage(appVersion);
 
-				ApplicationEntryServiceUtil.updateStatus(
-					applicationEntry.getApplicationEntryId(),
-					WorkflowConstants.STATUS_APPROVED, StringPool.BLANK);
+				AppEntryServiceUtil.updateStatus(
+					appEntry.getAppEntryId(), WorkflowConstants.STATUS_APPROVED,
+					StringPool.BLANK);
 			}
 		}
 		catch (Exception e) {
@@ -95,8 +92,7 @@ public class AppAdderPortlet extends MVCPortlet {
 		}
 	}
 
-	protected ApplicationEntry addApplicationEntry(
-			ActionRequest actionRequest, String title)
+	protected AppEntry addAppEntry(ActionRequest actionRequest, String title)
 		throws Exception {
 
 		ThemeDisplay themeDisplay =
@@ -143,8 +139,8 @@ public class AppAdderPortlet extends MVCPortlet {
 			StringPool.BLANK, "static-content", description, languageId,
 			languageId, true, descriptionLocalized);
 
-		ApplicationEntry applicationEntry =
-			ApplicationEntryServiceUtil.addApplicationEntry(
+		AppEntry appEntry =
+			AppEntryServiceUtil.addAppEntry(
 				ownerClassName, ownerClassPK, title, description, website,
 				demoWebsite, documentationWebsite, sourceCodeWebsite,
 				supportWebsite, labs, productType, null, null, iconFile,
@@ -153,72 +149,61 @@ public class AppAdderPortlet extends MVCPortlet {
 		long[] assetAttachmentIds = StringUtil.split(
 			ParamUtil.getString(actionRequest, "assetAttachmentIds"), 0L);
 
-		ApplicationVersion applicationVersion =
-			ApplicationVersionLocalServiceUtil.getLatestApplicationVersion(
-				applicationEntry.getApplicationEntryId());
+		AppVersion appVersion = AppVersionLocalServiceUtil.getLatestAppVersion(
+			appEntry.getAppEntryId());
 
 		for (long assetAttachmentId : assetAttachmentIds) {
 			AssetAttachmentLocalServiceUtil.updateAssetAttachment(
-				assetAttachmentId, ApplicationVersion.class.getName(),
-				applicationVersion.getApplicationVersionId());
+				assetAttachmentId, AppVersion.class.getName(),
+				appVersion.getAppVersionId());
 		}
 
-		List<ApplicationEntryRel> applicationEntryRels =
-			ApplicationEntryRelLocalServiceUtil.getApplicationEntryRels(
-				applicationEntry.getApplicationEntryId(),
-				1);
+		List<AppEntryRel> appEntryRels =
+			AppEntryRelLocalServiceUtil.getAppEntryRels(
+				appEntry.getAppEntryId(), 1);
 
-		for (ApplicationEntryRel applicationEntryRel : applicationEntryRels) {
-			ApplicationEntryRelServiceUtil.deleteApplicationEntryRel(
-				applicationEntryRel.getApplicationEntryRelId());
+		for (AppEntryRel appEntryRel : appEntryRels) {
+			AppEntryRelServiceUtil.deleteAppEntryRel(
+				appEntryRel.getAppEntryRelId());
 		}
 
-		long[] supersedesApplicationEntryIds =
+		long[] supersedesAppEntryIds =
 			StringUtil.split(
-				ParamUtil.getString(
-					actionRequest, "supersedesApplicationEntryIds"), 0L);
+				ParamUtil.getString(actionRequest, "supersedesAppEntryIds"),
+				0L);
 
-		for (long supersedesApplicationEntryId :
-				supersedesApplicationEntryIds) {
-
-			ApplicationEntryRelServiceUtil.addApplicationEntryRel(
-				applicationEntry.getApplicationEntryId(),
-				supersedesApplicationEntryId, 1);
+		for (long supersedesAppEntryId : supersedesAppEntryIds) {
+			AppEntryRelServiceUtil.addAppEntryRel(
+				appEntry.getAppEntryId(), supersedesAppEntryId, 1);
 		}
 
-		return applicationEntry;
+		return appEntry;
 	}
 
-	protected ApplicationEntry updateApplicationVersion(long applicationEntryId)
+	protected AppEntry updateAppVersion(long appEntryId)
 		throws PortalException, SystemException {
 
-		return ApplicationEntryLocalServiceUtil.updateApplicationEntry(
-			applicationEntryId, "1.0", StringPool.BLANK);
+		return AppEntryLocalServiceUtil.updateAppEntry(
+			appEntryId, "1.0", StringPool.BLANK);
 	}
 
-	protected void addApplicationPackage(ApplicationVersion applicationVersion)
+	protected void addAppPackage(AppVersion appVersion)
 		throws Exception {
 
-		ApplicationPackage applicationPackage =
-			ApplicationPackageLocalServiceUtil.fetchApplicationPackage(
-				applicationVersion.getApplicationVersionId(),
-				PORTAL_6_1_20_BUILD_NUMBER);
+		AppPackage appPackage = AppPackageLocalServiceUtil.fetchAppPackage(
+			appVersion.getAppVersionId(), PORTAL_6_1_20_BUILD_NUMBER);
 
-		if (applicationPackage == null) {
-			applicationPackage =
-				ApplicationPackageServiceUtil.addApplicationPackage(
-					applicationVersion.getApplicationEntryId(),
-					applicationVersion.getApplicationVersionId(),
-					PORTAL_6_1_20_BUILD_NUMBER, true);
+		if (appPackage == null) {
+			appPackage = AppPackageServiceUtil.addAppPackage(
+				appVersion.getAppEntryId(), appVersion.getAppVersionId(),
+				PORTAL_6_1_20_BUILD_NUMBER, true);
 		}
 
-		ApplicationPackagePlugin applicationPackagePlugin = null;
+		AppPackagePlugin appPackagePlugin = null;
 
-		applicationPackagePlugin =
-			ApplicationPackagePluginServiceUtil.
-				addApplicationPackagePlugin(
-					applicationPackage.getApplicationPackageId(),
-					APP_FILE_NAME, getFile("/resources/files/", APP_FILE_NAME));
+		appPackagePlugin = AppPackagePluginServiceUtil.addAppPackagePlugin(
+			appPackage.getAppPackageId(), APP_FILE_NAME,
+			getFile("/resources/files/", APP_FILE_NAME));
 	}
 
 	protected File generateIcon() throws Exception {
@@ -226,8 +211,7 @@ public class AppAdderPortlet extends MVCPortlet {
 
 		return getFile(
 			"/resources/images/icons/",
-			APPLICATION_ICON_FILE_NAMES[
-				random.nextInt(APPLICATION_ICON_FILE_NAMES.length)]);
+			APP_ICON_FILE_NAMES[random.nextInt(APP_ICON_FILE_NAMES.length)]);
 	}
 
 	protected File getFile(String path, String fileName) throws Exception {
@@ -245,7 +229,7 @@ public class AppAdderPortlet extends MVCPortlet {
 	protected static final String APP_FILE_NAME =
 		"hello-pacl-world-portlet-6.1.20.1.war";
 
-	protected static final String[] APPLICATION_ICON_FILE_NAMES = {
+	protected static final String[] APP_ICON_FILE_NAMES = {
 		"7COGS-HOOK.png", "7COGS-MOBILE.png", "7COGS-THEME2.png", "alloy.png",
 		"app.png", "chat.png", "GOOGLE ADSENSE.png", "GOOGLE-MAPS.png",
 		"hook-templates.png", "icon-alloy.png", "icon-so.png",
