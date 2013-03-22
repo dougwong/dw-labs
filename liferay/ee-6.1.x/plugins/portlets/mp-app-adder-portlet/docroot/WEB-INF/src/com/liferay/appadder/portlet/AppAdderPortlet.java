@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2011 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.SystemProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -45,7 +46,6 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.SystemProperties;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.File;
@@ -95,8 +95,8 @@ public class AppAdderPortlet extends MVCPortlet {
 	protected AppEntry addAppEntry(ActionRequest actionRequest, String title)
 		throws Exception {
 
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
 
 		boolean customEula = false;
 		String description = "Lorem ipsum dolor sit amet, consectetur";
@@ -180,16 +180,7 @@ public class AppAdderPortlet extends MVCPortlet {
 		return appEntry;
 	}
 
-	protected AppEntry updateAppVersion(long appEntryId)
-		throws PortalException, SystemException {
-
-		return AppEntryLocalServiceUtil.updateAppEntry(
-			appEntryId, "1.0", StringPool.BLANK);
-	}
-
-	protected void addAppPackage(AppVersion appVersion)
-		throws Exception {
-
+	protected void addAppPackage(AppVersion appVersion) throws Exception {
 		AppPackage appPackage = AppPackageLocalServiceUtil.fetchAppPackage(
 			appVersion.getAppVersionId(), PORTAL_6_1_20_BUILD_NUMBER);
 
@@ -224,6 +215,13 @@ public class AppAdderPortlet extends MVCPortlet {
 		FileUtil.write(file, classLoader.getResourceAsStream(path + fileName));
 
 		return file;
+	}
+
+	protected AppEntry updateAppVersion(long appEntryId)
+		throws PortalException, SystemException {
+
+		return AppEntryLocalServiceUtil.updateAppEntry(
+			appEntryId, "1.0", StringPool.BLANK);
 	}
 
 	protected static final String APP_FILE_NAME =
