@@ -25,41 +25,79 @@
 
 		<style type="text/css" media="screen">
 			body {
-				background: #eee;
-				color: #333;
-				font: 1.1em Georgia,'Times New Roman', Times, serif;
+				background: #fff;
+				color: #666;
+				font-family: 'Helvetica Neue', Helvetica, sans-serif, Georgia,'Times New Roman', Times, serif;
+				font-size: 0.9em;
+				font-weight: 300;
 				margin: 0px;
+			}
+
+			a {
+				color: #666;
+			}
+
+			a:hover {
+				color: #333;
 			}
 
 			.container {
 				background: #fff;
-				border-left: solid 1px #aaa;
-				border-right: solid 5px #aaa;
 				margin: 0 auto;
-				padding: 20px 40px;
-				width: 750px;
+				width: 1024px;
+			}
+
+			.header {
+				background-color: #fff;
+				background-image: url('http://i49.tinypic.com/98vtpu.jpg');
+				background-position: 40px 20px; 
+				background-repeat: no-repeat;
+				background-size: 80px 103px;
+				display: block;
+				height: 160px;
+				padding-left: 220px;
+				position: fixed;
+				top: 0px;
+				width: 100%;
 			}
 
 			.header h1 a {
-				color: #333;
+				font-size: 1.1em;
 				text-decoration: none;
-			}
-
-			.header h1 a:hover {
-				color: #666;
 			}
 
 			.header .description {
 				color: #E6B64D;
+				font-style: italic;
 			}
 
-			.content h3 a {
-				color: #333;
+			.sidebar {
+				float: left;
+				position: fixed;
+				top: 160px;
+				width: 220px;
+			}
+
+			.sidebar .links a {
+				color: #7ce0b3;
+				font-weight: normal;
+				line-height: 1.8;
 				text-decoration: none;
 			}
 
-			.content h3 a:hover {
-				color: #666;
+			.sidebar .links ul {
+				list-style-type: none;
+				padding: 0px;
+			}
+
+			.posts {
+				float: right;
+				margin-top: 160px;
+				width: 800px;
+			}
+
+			.content h3 a {
+				text-decoration: none;
 			}
 
 			{CustomCSS}
@@ -74,23 +112,26 @@
 					<div class="description">{Description}</div>
 				{/block:Description}
 
-				<div class="links">
-					<ul>
-						{block:IfShowArchiveLink}<li><a href="/archive">Archive</a></li>{/block:IfShowArchiveLink}
-						{block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
-						{block:HasPages}
-							{block:Pages}<li><a href="{URL}">{Label}</a></li>{/block:Pages}
-						{/block:HasPages}
-
-						{block:IfFacebookName}<li><a href="http://facebook.com/{text:Facebook Name}">Facebook</a></li>{/block:IfFacebookName}
-						{block:IfFlickrName}<li><a href="http://flickr.com/{text:Flickr Name}">Flickr</a></li>{/block:IfFlickrName}
-						{block:IfTwitterName}<li><a href="http://twitter.com/{text:Twitter Name}">Twitter</a></li>{/block:IfTwitterName}
-						{block:IfYoutubeName}<li><a href="http://youtube.com/{text:Youtube Name}">Youtube</a></li>{/block:IfYoutubeName}
-					</ul>
-				</div>
 			</div>
 
 			<div class="content">
+				<div class="sidebar">
+					<div class="links">
+						<ul>
+							{block:IfShowArchiveLink}<li><a href="/archive">Archive</a></li>{/block:IfShowArchiveLink}
+							{block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
+							{block:HasPages}
+								{block:Pages}<li><a href="{URL}">{Label}</a></li>{/block:Pages}
+							{/block:HasPages}
+
+							{block:IfFacebookName}<li><a href="http://facebook.com/{text:Facebook Name}">Facebook</a></li>{/block:IfFacebookName}
+							{block:IfFlickrName}<li><a href="http://flickr.com/{text:Flickr Name}">Flickr</a></li>{/block:IfFlickrName}
+							{block:IfTwitterName}<li><a href="http://twitter.com/{text:Twitter Name}">Twitter</a></li>{/block:IfTwitterName}
+							{block:IfYoutubeName}<li><a href="http://youtube.com/{text:Youtube Name}">Youtube</a></li>{/block:IfYoutubeName}
+						</ul>
+					</div>
+				</div>
+
 				<div class="posts">
 					{block:Posts}
 						{block:Text}
@@ -248,9 +289,6 @@
 					{/block:IfDisqusShortname}
 				</div>
 			</div>
-
-			<ol id="posts">
-			</ol>
 
 			<p id="footer">
 				{block:PreviousPage}
