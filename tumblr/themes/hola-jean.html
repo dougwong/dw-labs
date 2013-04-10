@@ -4,7 +4,17 @@
 		<link rel="shortcut icon" href="{Favicon}">
 		<link rel="alternate" type="application/rss+xml" href="{RSS}">
 
+		<meta name='text:Portrait Link' content='http://i49.tinypic.com/98vtpu.jpg' />
+
+
 		<meta name='text:Disqus Shortname' content='' />
+		<meta name='text:Facebook Name' content='' />
+		<meta name='text:Flicker Name' content='' />
+		<meta name='text:Twitter Name' content='' />
+		<meta name='text:Youtube Name' content='' />
+
+		<meta name='if:Show Archive Link' content='1' />
+		<meta name='if:Submissions Enabled' content='0' />
 
 		{block:Description}
 			<meta name="description" content="{MetaDescription}" />
@@ -30,11 +40,13 @@
 				font-family: 'Helvetica Neue', Helvetica, sans-serif, Georgia,'Times New Roman', Times, serif;
 				font-size: 1em;
 				font-weight: 300;
+				line-height: 1.5;
 				margin: 0px;
 			}
 
 			a {
 				color: #666;
+				text-decoration: none;
 			}
 
 			a:hover {
@@ -44,18 +56,18 @@
 			.container {
 				background: #fff;
 				margin: 0 auto;
-				width: 1024px;
+				width: 900px;
 			}
 
 			.header {
 				background-color: #fff;
-				background-image: url('http://i49.tinypic.com/98vtpu.jpg');
-				background-position: 40px 20px;
+				background-image: url('{text:Portrait Link}');
+				background-position: 120px 30px;
 				background-repeat: no-repeat;
 				background-size: 80px 103px;
 				display: block;
 				height: 160px;
-				padding-left: 220px;
+				padding-left: 228px;
 				position: fixed;
 				top: 0px;
 				width: 100%;
@@ -75,15 +87,14 @@
 			.sidebar {
 				float: left;
 				position: fixed;
-				top: 160px;
-				width: 220px;
+				text-align: right;
+				top: 150px;
+				width: 200px;
 			}
 
 			.sidebar .links a {
-				color: #7ce0b3;
-				font-weight: normal;
+				color: #6da;
 				line-height: 1.8;
-				text-decoration: none;
 			}
 
 			.sidebar .links ul {
@@ -93,12 +104,50 @@
 
 			.posts {
 				float: right;
-				margin-top: 142px;
-				width: 800px;
+				margin-top: 160px;
+				width: 670px;
 			}
 
-			.content h3 a {
-				text-decoration: none;
+			.postmeta {
+				margin-bottom: 40px;
+			}
+
+			.postmeta a {
+				color: #aaa;
+				font-size: 0.7em;
+				font-weight: bold;
+				text-transform: uppercase;
+			}
+
+			.date {
+				color: #666;
+				font-size: 0.7em;
+				font-weight: bold;
+				letter-spacing: 4px;
+				text-transform: uppercase;
+			}
+
+			.date .day-of-week {
+				color: #aaa;
+			}
+
+			.content h3 {
+				margin: 0px;
+			}
+
+			.footer {
+				float: right;
+				font-size: 0.7em;
+				font-weight: bold;
+				width: 670px;
+			}
+
+			.footer .next {
+				float: right;
+			}
+
+			.footer .previous {
+				float: left;
 			}
 
 			{CustomCSS}
@@ -119,8 +168,6 @@
 				<div class="sidebar">
 					<div class="links">
 						<ul>
-							{block:IfShowArchiveLink}<li><a href="/archive">Archive</a></li>{/block:IfShowArchiveLink}
-							{block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
 							{block:HasPages}
 								{block:Pages}<li><a href="{URL}">{Label}</a></li>{/block:Pages}
 							{/block:HasPages}
@@ -129,6 +176,9 @@
 							{block:IfFlickrName}<li><a href="http://flickr.com/{text:Flickr Name}">Flickr</a></li>{/block:IfFlickrName}
 							{block:IfTwitterName}<li><a href="http://twitter.com/{text:Twitter Name}">Twitter</a></li>{/block:IfTwitterName}
 							{block:IfYoutubeName}<li><a href="http://youtube.com/{text:Youtube Name}">Youtube</a></li>{/block:IfYoutubeName}
+
+							{block:IfShowArchiveLink}<li><a href="/archive">Archive</a></li>{/block:IfShowArchiveLink}
+							{block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
 						</ul>
 					</div>
 				</div>
@@ -137,6 +187,10 @@
 					{block:Posts}
 						{block:Text}
 							<div class="post text">
+								{block:Date}
+									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+								{/block:Date}
+
 								{block:Title}
 									<h3><a href="{Permalink}">{Title}</a></h3>
 								{/block:Title}
@@ -147,6 +201,10 @@
 
 						{block:Photo}
 							<div class="post photo">
+								{block:Date}
+									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+								{/block:Date}
+
 								<img src="{PhotoURL-500}" alt="{PhotoAlt}"/>
 
 								{block:Caption}
@@ -157,6 +215,10 @@
 
 						{block:Panorama}
 							<div class="post panorama">
+								{block:Date}
+									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+								{/block:Date}
+
 								{LinkOpenTag}
 									<img src="{PhotoURL-Panorama}" alt="{PhotoAlt}"/>
 								{LinkCloseTag}
@@ -169,6 +231,10 @@
 
 						{block:Photoset}
 							<div class="post photoset">
+								{block:Date}
+									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+								{/block:Date}
+
 								{Photoset-500}
 
 								{block:Caption}
@@ -179,6 +245,10 @@
 
 						{block:Quote}
 							<div class="post quote">
+								{block:Date}
+									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+								{/block:Date}
+
 								"{Quote}"
 
 								{block:Source}
@@ -189,6 +259,10 @@
 
 						{block:Link}
 							<div class="post link">
+								{block:Date}
+									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+								{/block:Date}
+
 								<a href="{URL}" class="link" {Target}>{Name}</a>
 
 								{block:Description}
@@ -199,6 +273,10 @@
 
 						{block:Chat}
 							<div class="post chat">
+								{block:Date}
+									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+								{/block:Date}
+
 								{block:Title}
 									<h3><a href="{Permalink}">{Title}</a></h3>
 								{/block:Title}
@@ -219,6 +297,10 @@
 
 						{block:Video}
 							<div class="post video">
+								{block:Date}
+									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+								{/block:Date}
+
 								{Video-500}
 
 								{block:Caption}
@@ -229,6 +311,10 @@
 
 						{block:Audio}
 							<div class="post audio">
+								{block:Date}
+									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+								{/block:Date}
+
 								{AudioPlayerBlack}
 
 								{block:Caption}
@@ -239,11 +325,7 @@
 
 						{block:IndexPage}
 							<div class="postmeta">
-								{block:Date}
-									<a href="{Permalink}">{TimeAgo}</a>
-								{/block:Date}
-
-								<a href="{Permalink}">{NoteCount} {lang:Notes}</a>
+								<a href="{Permalink}">{NoteCount} {lang:Notes}</a> · 
 
 								<a class="dsq-comment-count" href="{Permalink}#disqus_thread">Comments</a>
 							</div>
@@ -291,17 +373,15 @@
 				</div>
 			</div>
 
-			<p id="footer">
+			<div class="footer">
 				{block:PreviousPage}
-					<a href="{PreviousPage}">&#171; Previous</a>
+					<a class="previous" href="{PreviousPage}">&#171; Previous</a>
 				{/block:PreviousPage}
 
 				{block:NextPage}
-					<a href="{NextPage}">Next &#187;</a>
+					<a class="next" href="{NextPage}">Next &#187;</a>
 				{/block:NextPage}
-
-				<a href="/archive">Archive</a>
-			</p>
+			</div>
 		</div>
 	</body>
 </html>
