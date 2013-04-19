@@ -1,11 +1,12 @@
 <html>
 	<head>
-		<title>{Title}{block:PostTitle} - {PostTitle}{/block:PostTitle}</title>
+		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700' rel='stylesheet' type='text/css'>
 		<link rel="shortcut icon" href="{Favicon}">
 		<link rel="alternate" type="application/rss+xml" href="{RSS}">
 
-		<meta name='text:Portrait Link' content='http://i49.tinypic.com/98vtpu.jpg' />
+		<title>{Title}{block:PostTitle} - {PostTitle}{/block:PostTitle}</title>
 
+		<meta name='text:Portrait Link' content='http://i49.tinypic.com/98vtpu.jpg' />
 
 		<meta name='text:Disqus Shortname' content='' />
 		<meta name='text:Facebook Name' content='' />
@@ -37,7 +38,7 @@
 			body {
 				background: #fff;
 				color: #666;
-				font-family: 'Helvetica Neue', Helvetica, sans-serif, Georgia,'Times New Roman', Times, serif;
+				font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", 'Source Sans Pro', Helvetica, Arial, "Lucida Grande", sans-serif;
 				font-size: 1em;
 				font-weight: 300;
 				line-height: 1.5;
@@ -86,6 +87,9 @@
 
 			.sidebar {
 				float: left;
+				font-size: 0.95em;
+				font-weight: 400;
+				line-height: 1.8;
 				position: fixed;
 				text-align: right;
 				top: 150px;
@@ -94,7 +98,6 @@
 
 			.sidebar .links a {
 				color: #6da;
-				line-height: 1.8;
 			}
 
 			.sidebar .links ul {
@@ -188,7 +191,9 @@
 						{block:Text}
 							<div class="post text">
 								{block:Date}
-									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									<div>
+										<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									</div>
 								{/block:Date}
 
 								{block:Title}
@@ -202,7 +207,9 @@
 						{block:Photo}
 							<div class="post photo">
 								{block:Date}
-									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									<div>
+										<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									</div>
 								{/block:Date}
 
 								<img src="{PhotoURL-500}" alt="{PhotoAlt}"/>
@@ -216,7 +223,9 @@
 						{block:Panorama}
 							<div class="post panorama">
 								{block:Date}
-									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									<div>
+										<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									</div>
 								{/block:Date}
 
 								{LinkOpenTag}
@@ -232,7 +241,9 @@
 						{block:Photoset}
 							<div class="post photoset">
 								{block:Date}
-									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									<div>
+										<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									</div>
 								{/block:Date}
 
 								{Photoset-500}
@@ -246,7 +257,9 @@
 						{block:Quote}
 							<div class="post quote">
 								{block:Date}
-									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									<div>
+										<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									</div>
 								{/block:Date}
 
 								"{Quote}"
@@ -260,7 +273,9 @@
 						{block:Link}
 							<div class="post link">
 								{block:Date}
-									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									<div>
+										<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									</div>
 								{/block:Date}
 
 								<a href="{URL}" class="link" {Target}>{Name}</a>
@@ -274,7 +289,9 @@
 						{block:Chat}
 							<div class="post chat">
 								{block:Date}
-									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									<div>
+										<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									</div>
 								{/block:Date}
 
 								{block:Title}
@@ -298,7 +315,9 @@
 						{block:Video}
 							<div class="post video">
 								{block:Date}
-									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									<div>
+										<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									</div>
 								{/block:Date}
 
 								{Video-500}
@@ -312,7 +331,9 @@
 						{block:Audio}
 							<div class="post audio">
 								{block:Date}
-									<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									<div>
+										<a class="date" href="{Permalink}"><span class="day-of-week">{ShortDayOfWeek}</span> <span>{ShortMonth} {DayOfMonth} {Year}</span></a>
+									</div>
 								{/block:Date}
 
 								{AudioPlayerBlack}
@@ -325,7 +346,7 @@
 
 						{block:IndexPage}
 							<div class="postmeta">
-								<a href="{Permalink}">{NoteCount} {lang:Notes}</a> · 
+								<a href="{Permalink}">{NoteCount} {lang:Notes}</a> ·
 
 								<a class="dsq-comment-count" href="{Permalink}#disqus_thread">Comments</a>
 							</div>
