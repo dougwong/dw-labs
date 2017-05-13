@@ -22,22 +22,21 @@
 		{/block:Description}
 
 		<!-- DEFAULT COLORS -->
-		<meta name="color:Background" content="#eee"/>
-		<meta name="color:Container" content="#fff"/>
-		<meta name="color:Text" content="#333"/>
-		<meta name="color:Links" content="#6DC0A9"/>
-		<meta name="color:Links Hover" content="#4A8D75"/>
-		<meta name="color:Heading" content="#000"/>
-		<meta name="color:Heading Hover" content="#444"/>
-		<meta name="color:Description" content="#919191"/>
-		<meta name="color:Permalink" content="#3F3F3F"/>
-		<meta name="color:Permalink Hover" content="#000000"/>
-		<meta name="color:Text Alt" content="#919191"/>
+		<meta name="color:background" content="#FFFFFF"/>
+		<meta name="color:container" content="#FFFFFF"/>
+		<meta name="color:text" content="#666666"/>
+		<meta name="color:links" content="#666666"/>
+		<meta name="color:links hover" content="#333333"/>
+		<meta name="color:day of week" content="#AAAAAA"/>
+		<meta name="color:description" content="#E6B64D"/>
+		<meta name="color:sidebar links" content="#55CC88"/>
+		<meta name="color:explore links" content="#11BBCC"/>
+		<meta name="color:post meta" content="#AAAAAA"/>
 
 		<style type="text/css" media="screen">
 			body {
-				background: #fff;
-				color: #666;
+				background: {color:background};
+				color: {color:text};
 				font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", 'Source Sans Pro', Helvetica, Arial, "Lucida Grande", sans-serif;
 				font-size: 1em;
 				font-weight: 300;
@@ -46,22 +45,22 @@
 			}
 
 			a {
-				color: #666;
+				color: {color:links};
 				text-decoration: none;
 			}
 
 			a:hover {
-				color: #333;
+				color: {color:links hover};
 			}
 
 			.container {
-				background: #fff;
+				background: {color:container};
 				margin: 0 auto;
 				width: 900px;
 			}
 
 			.header {
-				background-color: #fff;
+				background-color: {color:background};
 				background-image: url('{text:Portrait Link}');
 				background-position: 120px 30px;
 				background-repeat: no-repeat;
@@ -80,7 +79,7 @@
 			}
 
 			.header .description {
-				color: #E6B64D;
+				color: {color:description};
 				font-size: 0.9em;
 				font-style: italic;
 			}
@@ -88,7 +87,6 @@
 			.sidebar {
 				float: left;
 				font-size: 0.95em;
-				font-weight: 400;
 				line-height: 1.8;
 				position: fixed;
 				text-align: right;
@@ -97,12 +95,20 @@
 			}
 
 			.sidebar .links a {
-				color: #6da;
+				color: {color:sidebar links};
 			}
 
 			.sidebar .links ul {
 				list-style-type: none;
 				padding: 0px;
+			}
+
+			.sidebar .explore-links a {
+				color: {color:explore links};
+			}
+
+			.sidebar .explore-links a.link-header {
+				font-weight: bold;
 			}
 
 			.posts {
@@ -116,14 +122,14 @@
 			}
 
 			.postmeta a {
-				color: #aaa;
+				color: {color:post meta};
 				font-size: 0.7em;
 				font-weight: bold;
 				text-transform: uppercase;
 			}
 
 			.date {
-				color: #666;
+				color: {color:Links};
 				font-size: 0.7em;
 				font-weight: bold;
 				letter-spacing: 4px;
@@ -131,7 +137,7 @@
 			}
 
 			.date .day-of-week {
-				color: #aaa;
+				color: {color:day of week};
 			}
 
 			.content h3 {
@@ -182,6 +188,14 @@
 
 							{block:IfShowArchiveLink}<li><a href="/archive">Archive</a></li>{/block:IfShowArchiveLink}
 							{block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
+						</ul>
+
+						<ul class="explore-links">
+							<li><a class="link-header">Explore</a></li>
+							<li><a href="http://www.elpozodevida.org.mx/english/">El Pozo de Vida</a></li>
+							<li><a href="http://www.27million.com/">27Million</a></li>
+							<li><a href="http://mexicocity.newsong.net/">Newsong Neo</a></li>
+							<li><a href="http://noc.newsong.net/">Newsong NOC</a></li>
 						</ul>
 					</div>
 				</div>
